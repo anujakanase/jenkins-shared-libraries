@@ -7,6 +7,7 @@ It Automate various parts of software development.
 
 * What is CI/CD?
 CI (Continuous Integration): A process where developers integrate code changes into a shared repository frequently. This is followed by automated builds and tests to detect issues early.
+
 CD (Continuous Delivery/Deployment): A process where code changes are automatically tested and deployed to production or staging environments, ensuring the application is always in a deployable state.
 
 * Why CI/CD is Important?
@@ -36,6 +37,7 @@ Code Commit → Jenkins Trigger → Build → Test → Docker Build → Deploy
 5) Deploy -Runs the application container
 
 🔐 Best Practices
+
 .Store credentials in Jenkins Credentials Manager
 
 .Do not hardcode secrets in pipeline
