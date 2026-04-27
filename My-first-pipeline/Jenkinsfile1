@@ -1,0 +1,5 @@
+echo "Hello Devops Engineer"
+
+mkdir -p devops
+
+echo "devops folder created"
