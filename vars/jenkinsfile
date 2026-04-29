@@ -1,0 +1,57 @@
+@Library("Shared") _
+pipeline{
+    agent { label "one" }
+    stages{
+        stage("Hello"){
+            steps{
+                script{
+                    hello()
+                }
+            }
+        }
+        stage("Code"){
+            steps{
+             script{
+            clone("https://github.com/LondheShubham153/django-notes-app.git" , "main")
+}
+            }
+        }
+        stage("Build") {
+            steps{
+            script{
+            docker_build("notes-app", "latest","anujakanase")
+            }
+        }
+        }
+        stage("Push to DockerHub") {
+            steps{
+           script{
+               docker_push("notes-app", "latest", "anujakanase")
+            }
+        }
+            }
+        stage("Deploy") {
+            steps{
+                script{
+            echo "This is deploying the code"
+            sh '''
+                    docker stop notes-app || true
+                    docker rm notes-app || true
+                    '''
+
+                    // Pull latest image from DockerHub
+                    sh "docker pull anujakanase/notes-app:latest"
+
+                    // Run container
+                    sh '''
+                    docker run -d -p 8000:8000 --name notes-app anujakanase/notes-app:latest
+                    '''
+
+                    // Verify container
+                    sh "docker ps"
+           
+        }
+        }
+        }
+}
+}
